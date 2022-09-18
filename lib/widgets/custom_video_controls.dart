@@ -4,9 +4,10 @@ import 'dart:ui' as ui;
 
 import 'package:chewie/chewie.dart';
 // ignore: implementation_imports
-import 'package:chewie/src/cupertino_progress_bar.dart';
+import 'package:chewie/src/cupertino/cupertino_progress_bar.dart';
+// import 'package:chewie/'
 // ignore: implementation_imports
-import 'package:chewie/src/utils.dart';
+import 'package:chewie/src/helpers/utils.dart';
 // ignore: unused_import
 //import 'package:dart_chromecast/casting/cast_device.dart';
 // ignore: unused_import
@@ -620,7 +621,7 @@ class _CupertinoControlsState extends State<CustomCupertinoControls> {
       } else {
         _cancelAndRestartTimer();
 
-        if (!controller.value.initialized) {
+        if (!controller.value.isInitialized) {
           controller.initialize().then((_) {
             controller.play();
           });

@@ -19,14 +19,14 @@ TestPageState _onAction(TestPageState state, Action action) {
 }
 
 TestPageState _setData(TestPageState state, Action action) {
-  final Stream<FetchResult> d = action.payload;
+  final Stream<QueryResult> d = action.payload;
   final TestPageState newState = state.clone();
   newState.testData = d;
   return newState;
 }
 
 TestPageState _setData2(TestPageState state, Action action) {
-  final Stream<FetchResult> d = action.payload;
+  final Stream<QueryResult> d = action.payload;
   final TestPageState newState = state.clone();
   newState.testData2 = d;
   return newState;

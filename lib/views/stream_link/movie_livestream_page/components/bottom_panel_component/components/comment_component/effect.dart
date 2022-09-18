@@ -38,7 +38,7 @@ void _addComment(Action action, Context<CommentState> ctx) async {
   final String _commentTxt = action.payload;
   final _user = GlobalStore.store.getState().user;
   if (_user == null) {
-    Toast.show('login before comment', ctx.context, duration: 2);
+    Toast.show('login before comment', duration: 2);
     return;
   }
   if (_commentTxt != '' && _commentTxt != null) {
@@ -53,7 +53,7 @@ void _addComment(Action action, Context<CommentState> ctx) async {
         u: BaseUser.fromParams(
             uid: _user.firebaseUser.uid,
             userName: _user.firebaseUser.displayName,
-            photoUrl: _user.firebaseUser.photoUrl),
+            photoUrl: _user.firebaseUser.photoURL),
         like: 0);
     ctx.dispatch(CommentActionCreator.insertComment(_comment));
     _baseApi.createMovieComment(_comment).then((r) {

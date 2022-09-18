@@ -19,7 +19,7 @@ CastListState _onAction(CastListState state, Action action) {
 }
 
 CastListState _setCastList(CastListState state, Action action) {
-  final Stream<FetchResult> _stream = action.payload;
+  final Stream<QueryResult> _stream = action.payload;
   final CastListState newState = state.clone();
   newState.castList = _stream;
   return newState;

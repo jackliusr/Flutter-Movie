@@ -29,10 +29,10 @@ class _CastListCreateState extends State<CastListCreate> {
     _nameFoucsNode.unfocus();
     _descriptionFoucsNode.unfocus();
     if (_nameController.text == "")
-      return Toast.show('List name can\'t be empty', context);
+      return Toast.show('List name can\'t be empty');
     final _user = GlobalStore.store.getState().user;
     if (_user?.firebaseUser == null)
-      return Toast.show('Please login before add a list', context);
+      return Toast.show('Please login before add a list');
     _setLoading(true);
     final _nowTime = DateTime.now();
     QueryResult _result;
@@ -62,7 +62,7 @@ class _CastListCreateState extends State<CastListCreate> {
     if (!_result.hasException)
       Navigator.of(context).pop();
     else {
-      Toast.show('Something wrong', context);
+      Toast.show('Something wrong');
     }
   }
 
@@ -81,12 +81,10 @@ class _CastListCreateState extends State<CastListCreate> {
         source: ImageSource.gallery, maxHeight: 1920, maxWidth: 1080);
     if (_image != null) {
       _setLoading(true);
-      StorageReference storageReference = FirebaseStorage.instance
+      final storageReference = FirebaseStorage.instance
           .ref()
           .child('avatar/${Path.basename(_image.path)}');
-      StorageUploadTask uploadTask =
-          storageReference.putData(await _image.readAsBytes());
-      await uploadTask.onComplete;
+      await storageReference.putData(await _image.readAsBytes());
       print('File Uploaded');
       storageReference.getDownloadURL().then((fileURL) {
         if (fileURL != null) {
@@ -115,7 +113,7 @@ class _CastListCreateState extends State<CastListCreate> {
     if (!_result.hasException)
       Navigator.of(context).pop();
     else {
-      Toast.show('Something wrong', context);
+      Toast.show('Something wrong');
     }
   }
 

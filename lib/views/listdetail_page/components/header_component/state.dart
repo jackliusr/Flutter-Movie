@@ -9,7 +9,7 @@ class HeaderState implements Cloneable<HeaderState> {
   String description;
   List<SortCondition> sortBy;
   String sortType;
-  FirebaseUser user;
+  User user;
   @override
   HeaderState clone() {
     return HeaderState();

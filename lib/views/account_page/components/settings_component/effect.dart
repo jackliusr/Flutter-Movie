@@ -65,9 +65,9 @@ Future _checkUpdate(Action action, Context<SettingsState> ctx) async {
         ),
       );
     } else
-      Toast.show('Already up to date', ctx.context);
+      Toast.show('Already up to date');
   } else
-    Toast.show(_result.message, ctx.context);
+    Toast.show(_result.message);
   //ctx.dispatch(SettingPageActionCreator.onLoading(false));
 }
 
@@ -120,7 +120,7 @@ void _languageTap(Action action, Context<SettingsState> ctx) async {
 
 void _darkModeTap(Action action, Context<SettingsState> ctx) {
   ctx.dispatch(AccountActionCreator.showTip('Unavailable at this moment'));
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   print(_firebaseMessaging.getToken());
 }
 
@@ -129,7 +129,7 @@ void _notificationsTap(Action action, Context<SettingsState> ctx) async {
   ctx.dispatch(SettingsActionCreator.notificationsUpdate(!_enable));
   SharedPreferences _prefs = await SharedPreferences.getInstance();
   _prefs.setBool('enableNotifications', !_enable);
-  final List<String> topics =[];
+  final List<String> topics = [];
   final Item _language = await AppLanguage.instance.getApplanguage();
   String _movieTypeUsbcirbed = _prefs.getString('movieTypeSubscribed');
   String _tvTypeUsbcirbed = _prefs.getString('tvTypeSubscribed');

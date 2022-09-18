@@ -11,10 +11,10 @@ class UserInfoOperate {
   static bool isPremium = false;
   static String premiumExpireDate;
 
-  static Future whenLogin(FirebaseUser user, String nickName) async {
+  static Future whenLogin(User user, String nickName) async {
     final _baseApi = BaseApi.instance;
     _baseApi.updateUser(
-        user.uid, user.email, user.photoUrl, nickName, user.phoneNumber);
+        user.uid, user.email, user.photoURL, nickName, user.phoneNumber);
 
     GlobalStore.store.dispatch(GlobalActionCreator.setUser(
         AppUser(firebaseUser: user, premium: null)));
@@ -29,7 +29,7 @@ class UserInfoOperate {
 
   static Future<bool> whenLogout() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
-    final FirebaseUser currentUser = await _auth.currentUser();
+    final User currentUser = await _auth.currentUser;
     SharedPreferences _preferences = await SharedPreferences.getInstance();
     if (currentUser != null) {
       try {
@@ -47,7 +47,7 @@ class UserInfoOperate {
   }
 
   static Future whenAppStart() async {
-    var _user = await FirebaseAuth.instance.currentUser();
+    var _user = await FirebaseAuth.instance.currentUser;
     if (_user != null) {
       SharedPreferences _preferences = await SharedPreferences.getInstance();
       UserPremiumData _premiumData;

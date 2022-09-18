@@ -21,7 +21,7 @@ Widget buildView(
     body: Column(children: [
       SizedBox(
         height: 200,
-        child: StreamBuilder<FetchResult>(
+        child: StreamBuilder<QueryResult>(
           stream: state.testData2,
           builder: (_, snapShot) {
             switch (snapShot.connectionState) {
@@ -64,7 +64,7 @@ class _StripeTestState extends State<_StripeTest> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child:ElevatedButton(
+      child: ElevatedButton(
         child: Text("Native payment"),
         onPressed: () async {
           await StripePayment.canMakeNativePayPayments([])

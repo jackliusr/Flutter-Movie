@@ -14,7 +14,7 @@ class BaseGraphQLClient {
         httpLink: AppConfig.instance.graphQLHttpLink,
         webSocketLink: AppConfig.instance.graphQlWebSocketLink);
 
-  Stream<FetchResult> castListSubscription(String uid) {
+  Stream<QueryResult> castListSubscription(String uid) {
     String _sub = '''
     subscription castList{
       castList(uid:"$uid"){
@@ -166,7 +166,7 @@ class BaseGraphQLClient {
     return _service.mutate(_query);
   }
 
-  Stream<FetchResult> tvShowCommentSubscription(int id) {
+  Stream<QueryResult> tvShowCommentSubscription(int id) {
     String _sub = '''
     subscription tvComment{
        comment: tvShowCommentList(id:$id){

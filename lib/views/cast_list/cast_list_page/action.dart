@@ -19,7 +19,7 @@ class CastListActionCreator {
     return const Action(CastListAction.addCastList);
   }
 
-  static Action setCastList(Stream<FetchResult> stream) {
+  static Action setCastList(Stream<QueryResult> stream) {
     return Action(CastListAction.setCastList, payload: stream);
   }
 

@@ -7,7 +7,7 @@ import 'package:movie/models/item.dart';
 class SettingPageState implements Cloneable<SettingPageState> {
   AnimationController pageAnimation;
   AnimationController userEditAnimation;
-  FirebaseUser user;
+  User user;
   String userName;
   String photoUrl;
   String userPanelPhotoUrl;
@@ -52,8 +52,8 @@ SettingPageState initState(Map<String, dynamic> args) {
     state.user = user;
     state.userName = user.displayName;
     state.phone = user.phoneNumber;
-    state.photoUrl = user.photoUrl;
-    state.userPanelPhotoUrl = user.photoUrl;
+    state.photoUrl = user.photoURL;
+    state.userPanelPhotoUrl = user.photoURL;
   }
   state.adultSwitchValue = false;
   state.isEditProfile = false;

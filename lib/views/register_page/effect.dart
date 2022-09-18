@@ -44,22 +44,21 @@ void _onRegisterWithEmail(Action action, Context<RegisterPageState> ctx) async {
   if (ctx.state.nameTextController.text == '' ||
       ctx.state.emailTextController.text == '' ||
       ctx.state.passWordTextController.text == '') {
-    Toast.show('Please enter all information', ctx.context,
-        duration: 3, gravity: Toast.BOTTOM);
+    Toast.show('Please enter all information',
+        duration: 3, gravity: Toast.bottom);
   } else {
     try {
       ctx.state.submitAnimationController.forward();
       final FirebaseAuth _auth = FirebaseAuth.instance;
-      final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
+      final user = (await _auth.createUserWithEmailAndPassword(
               email: ctx.state.emailTextController.text,
               password: ctx.state.passWordTextController.text))
           .user;
       if (user != null) {
         assert(ctx.state.nameTextController.text != '');
         user.sendEmailVerification();
-        final UserUpdateInfo userUpdateInfo = UserUpdateInfo()
-          ..displayName = ctx.state.nameTextController.text;
-        user.updateProfile(userUpdateInfo).then((d) {
+        final displayName = ctx.state.nameTextController.text;
+        user.updateDisplayName(displayName).then((d) {
           UserInfoOperate.whenLogin(user, ctx.state.nameTextController.text);
           Navigator.pop(
             ctx.context,
@@ -73,7 +72,7 @@ void _onRegisterWithEmail(Action action, Context<RegisterPageState> ctx) async {
       }
     } on Exception catch (e) {
       ctx.state.submitAnimationController.reverse();
-      Toast.show(e.toString(), ctx.context, duration: 3, gravity: Toast.BOTTOM);
+      Toast.show(e.toString(), duration: 3, gravity: Toast.bottom);
     }
   }
 }

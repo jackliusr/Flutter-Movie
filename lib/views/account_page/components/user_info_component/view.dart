@@ -66,7 +66,7 @@ Widget buildView(
 
 class _Body extends StatelessWidget {
   final bool isSignIn;
-  final FirebaseUser user;
+  final User user;
   final Key overlayStateKey;
   final Function openMenu;
   final Function onSignIn;
@@ -84,7 +84,7 @@ class _Body extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(0, Adapt.px(30), 0, 25),
           child: isSignIn
               ? _UserInfo(
-                  profileUrl: user?.photoUrl,
+                  profileUrl: user?.photoURL,
                   userName: user?.displayName,
                   openMenu: openMenu,
                   overlayStateKey: overlayStateKey)

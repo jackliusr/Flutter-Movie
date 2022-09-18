@@ -101,12 +101,12 @@ void _adultCellTapped(Action action, Context<SettingPageState> ctx) async {
 }
 
 void _getCachedSize(Context<SettingPageState> ctx) async {
-  final directory = Directory(await DefaultCacheManager().getFilePath());
-  if (directory.existsSync()) {
-    FileStat fileStat = directory.statSync();
-    ctx.dispatch(
-        SettingPageActionCreator.cacheSizeUpdate(fileStat.size / 1024.0));
-  }
+  // final directory = Directory(await DefaultCacheManager().getFilePath());
+  // if (directory.existsSync()) {
+  //   FileStat fileStat = directory.statSync();
+  //   ctx.dispatch(
+  //       SettingPageActionCreator.cacheSizeUpdate(fileStat.size / 1024.0));
+  // }
 }
 
 void _profileEdit(Action action, Context<SettingPageState> ctx) {
@@ -115,12 +115,22 @@ void _profileEdit(Action action, Context<SettingPageState> ctx) {
     assert(ctx.state.photoUrl != null && ctx.state.photoUrl != '');
 
     ctx.dispatch(SettingPageActionCreator.onUploading(true));
-    final UserUpdateInfo _userInfo = UserUpdateInfo();
-    _userInfo.displayName = ctx.state.userName;
-    _userInfo.photoUrl = ctx.state.photoUrl;
-    ctx.state.user.updateProfile(_userInfo)
+    // final UserUpdateInfo _userInfo = UserUpdateInfo();
+    // _userInfo.displayName = ctx.state.userName;
+    // _userInfo.photoUrl = ctx.state.photoUrl;
+    ctx.state.user.updatePhotoURL(ctx.state.userName)
       ..then((d) async {
-        final _user = await FirebaseAuth.instance.currentUser();
+        final _user = await FirebaseAuth.instance.currentUser;
+
+        ctx.dispatch(SettingPageActionCreator.userUpadate(_user));
+
+        UserInfoOperate.whenLogin(_user, _user.displayName);
+        ctx.dispatch(SettingPageActionCreator.onUploading(false));
+        ctx.state.userEditAnimation.reverse();
+      });
+    ctx.state.user.updatePhotoURL(ctx.state.photoUrl)
+      ..then((d) async {
+        final _user = await FirebaseAuth.instance.currentUser;
 
         ctx.dispatch(SettingPageActionCreator.userUpadate(_user));
 
@@ -137,12 +147,11 @@ Future _openPhotoPicker(Action action, Context<SettingPageState> ctx) async {
       source: ImageSource.gallery, maxHeight: 100, maxWidth: 100);
   if (_image != null) {
     ctx.dispatch(SettingPageActionCreator.onUploading(true));
-    StorageReference storageReference = FirebaseStorage.instance
+    final storageReference = FirebaseStorage.instance
         .ref()
         .child('avatar/${Path.basename(_image.path)}');
-    StorageUploadTask uploadTask =
-        storageReference.putData(await _image.readAsBytes());
-    await uploadTask.onComplete;
+
+    await storageReference.putData(await _image.readAsBytes());
     print('File Uploaded');
     storageReference.getDownloadURL().then((fileURL) {
       if (fileURL != null) {
@@ -177,7 +186,7 @@ Future _checkUpdate(Action action, Context<SettingPageState> ctx) async {
               ));
     }
   } else
-    Toast.show(_result.message, ctx.context);
+    Toast.show(_result.message);
   ctx.dispatch(SettingPageActionCreator.onLoading(false));
 }
 

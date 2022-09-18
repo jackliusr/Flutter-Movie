@@ -14,7 +14,7 @@ class LocalNotification {
     var initializationSettingsIOS = IOSInitializationSettings(
         onDidReceiveLocalNotification: onDidReceiveLocalNotification);
     var initializationSettings = InitializationSettings(
-        initializationSettingsAndroid, initializationSettingsIOS);
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     _flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: selectNotification);
   }
@@ -32,12 +32,16 @@ class LocalNotification {
   Future sendNotification(String title, String body,
       {int id = 0, String payload = ''}) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        '1128', 'flutterMovieNotification', 'for loacl Notification',
-        importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
+        '1128', 'flutterMovieNotification',
+        channelDescription: 'for loacl Notification',
+        importance: Importance.max,
+        priority: Priority.high,
+        ticker: 'ticker');
     var iOSPlatformChannelSpecifics =
         IOSNotificationDetails(presentAlert: true, presentBadge: true);
     var platformChannelSpecifics = NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics);
     await _flutterLocalNotificationsPlugin
         .show(id, title, body, platformChannelSpecifics, payload: payload);
   }

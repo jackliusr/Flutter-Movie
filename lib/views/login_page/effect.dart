@@ -73,15 +73,15 @@ void _onDispose(Action action, Context<LoginPageState> ctx) {
 void _onAction(Action action, Context<LoginPageState> ctx) {}
 
 Future _onLoginClicked(Action action, Context<LoginPageState> ctx) async {
-  AuthResult _result;
+  UserCredential _result;
   ctx.state.submitAnimationController.forward();
   if (ctx.state.emailLogin)
     _result = await _emailSignIn(action, ctx);
   else
     _result = await _phoneNumSignIn(action, ctx);
   if (_result?.user == null) {
-    Toast.show("Account verification required", ctx.context,
-        duration: 3, gravity: Toast.BOTTOM);
+    Toast.show("Account verification required",
+        duration: 3, gravity: Toast.bottom);
     ctx.state.submitAnimationController.reverse();
   } else {
     var user = _result?.user;
@@ -90,14 +90,14 @@ Future _onLoginClicked(Action action, Context<LoginPageState> ctx) async {
 
     if (user.displayName == null)
       user
-          .updateProfile(UserUpdateInfo()..displayName = _nickName)
+          .updateDisplayName(user.displayName)
           .then((v) => UserInfoOperate.whenLogin(user, _nickName));
     UserInfoOperate.whenLogin(user, _nickName);
     Navigator.of(ctx.context).pop({'s': true, 'name': _nickName});
   }
 }
 
-Future<AuthResult> _emailSignIn(
+Future<UserCredential> _emailSignIn(
     Action action, Context<LoginPageState> ctx) async {
   if (ctx.state.accountTextController.text != '' &&
       ctx.state.passWordTextController.text != '') {
@@ -106,23 +106,23 @@ Future<AuthResult> _emailSignIn(
       return await _auth.signInWithEmailAndPassword(
           email: _email, password: ctx.state.passWordTextController.text);
     } on Exception catch (e) {
-      Toast.show(e.toString(), ctx.context, duration: 3, gravity: Toast.BOTTOM);
+      Toast.show(e.toString(), duration: 3, gravity: Toast.bottom);
       ctx.state.submitAnimationController.reverse();
     }
   }
   return null;
 }
 
-Future<AuthResult> _phoneNumSignIn(
+Future<UserCredential> _phoneNumSignIn(
     Action action, Context<LoginPageState> ctx) async {
   if (_verificationId != null && ctx.state.codeTextContraller.text.isNotEmpty) {
     try {
-      final _credential = PhoneAuthProvider.getCredential(
+      final _credential = PhoneAuthProvider.credential(
           verificationId: _verificationId,
           smsCode: ctx.state.codeTextContraller.text);
       return await _auth.signInWithCredential(_credential);
     } on Exception catch (e) {
-      Toast.show(e.toString(), ctx.context, duration: 3, gravity: Toast.BOTTOM);
+      Toast.show(e.toString(), duration: 3, gravity: Toast.bottom);
       ctx.state.submitAnimationController.reverse();
     }
   }
@@ -155,30 +155,28 @@ void _onGoogleSignIn(Action action, Context<LoginPageState> ctx) async {
       return ctx.state.submitAnimationController.reverse();
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    final FirebaseUser user =
-        (await _auth.signInWithCredential(credential)).user;
+    final user = (await _auth.signInWithCredential(credential)).user;
     assert(user.email != null);
     assert(user.displayName != null);
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
 
-    final FirebaseUser currentUser = await _auth.currentUser();
+    final currentUser = await _auth.currentUser;
     assert(user.uid == currentUser.uid);
     if (user != null) {
       UserInfoOperate.whenLogin(user, user.displayName);
       Navigator.of(ctx.context).pop({'s': true, 'name': user.displayName});
     } else {
       ctx.state.submitAnimationController.reverse();
-      Toast.show("Google signIn fail", ctx.context,
-          duration: 3, gravity: Toast.BOTTOM);
+      Toast.show("Google signIn fail", duration: 3, gravity: Toast.bottom);
     }
   } on Exception catch (e) {
     ctx.state.submitAnimationController.reverse();
-    Toast.show(e.toString(), ctx.context, duration: 5, gravity: Toast.BOTTOM);
+    Toast.show(e.toString(), duration: 5, gravity: Toast.bottom);
   }
 }
 
@@ -186,15 +184,14 @@ String _verificationId;
 void _onSendVerificationCode(Action action, Context<LoginPageState> ctx) async {
   if (ctx.state.phoneTextController.text.isEmpty ||
       ctx.state.phoneTextController.text.length < 8)
-    return Toast.show('Invalid phone number', ctx.context);
+    return Toast.show('Invalid phone number');
   _auth.verifyPhoneNumber(
       phoneNumber: ctx.state.countryCode + ctx.state.phoneTextController.text,
       timeout: Duration(seconds: 60),
       verificationCompleted: null,
-      verificationFailed: (AuthException e) {
+      verificationFailed: (FirebaseAuthException e) {
         print('error code: ${e.code}, message: ${e.message}');
-        Toast.show(e.message, ctx.context,
-            gravity: Toast.TOP, duration: Toast.LENGTH_LONG);
+        Toast.show(e.message, gravity: Toast.top, duration: Toast.lengthLong);
       },
       codeSent: (String verificationId, [int]) {
         _verificationId = verificationId;

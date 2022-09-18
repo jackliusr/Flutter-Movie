@@ -16,7 +16,7 @@ class CastList extends StatefulWidget {
 }
 
 class _CastListState extends State<CastList> {
-  Stream<FetchResult> _data;
+  Stream<QueryResult> _data;
   BaseCast _cast;
   BaseCastList _selectedList;
   @override
@@ -45,7 +45,7 @@ class _CastListState extends State<CastList> {
   void _onOk(BuildContext c) async {
     if (_selectedList == null) return;
     final _user = GlobalStore.store.getState().user;
-    if (_user?.firebaseUser == null) return Toast.show('Please login', c);
+    if (_user?.firebaseUser == null) return Toast.show('Please login');
     _cast.listId = _selectedList.id;
 
     BaseGraphQLClient.instance.addCast(_selectedList, _cast);
@@ -65,7 +65,7 @@ class _CastListState extends State<CastList> {
         Container(
           height: _size.height / 2,
           width: _size.width,
-          child: StreamBuilder<FetchResult>(
+          child: StreamBuilder<QueryResult>(
             stream: _data,
             builder: (_, snapShot) {
               switch (snapShot.connectionState) {

@@ -37,10 +37,10 @@ Widget buildView(
                   height: Adapt.px(80),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Adapt.px(40)),
-                      image: state.user.photoUrl != null
+                      image: state.user.photoURL != null
                           ? DecorationImage(
                               image: CachedNetworkImageProvider(
-                                  state.user.photoUrl))
+                                  state.user.photoURL))
                           : null),
                 ),
                 SizedBox(

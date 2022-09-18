@@ -128,7 +128,7 @@ class _PlayerPanelState extends State<PlayerPanel>
   _playTapped(BuildContext context) async {
     if (widget.loading) return;
     if (!widget.useVideoSourceApi && widget.playerType == 'VideoSourceApi')
-      return Toast.show('no streamlink at this moment', context);
+      return Toast.show('no streamlink at this moment');
     if (_needAd) {
       _setLoading(true);
       _rewardedVideoAd.load(

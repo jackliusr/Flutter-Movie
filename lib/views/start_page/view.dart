@@ -174,7 +174,7 @@ class _SubscribeTopicPage extends StatefulWidget {
 }
 
 class _SubscribeTopicPageState extends State<_SubscribeTopicPage> {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final List<Item> _genres = [];
   final _languageCode = ui.window.locale.languageCode;
   @override

@@ -1,5 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:graphql_flutter/graphql_flutter.dart' hide Context;
 import 'package:movie/actions/api/base_api.dart';
 import 'package:movie/actions/api/graphql_client.dart';
 import 'package:movie/models/base_api_model/movie_like_model.dart';

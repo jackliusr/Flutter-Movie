@@ -25,7 +25,7 @@ void _takePicture(Action action, Context<ScanState> ctx) async {
   await Directory(dirPath).create(recursive: true);
   final String filePath =
       '$dirPath/${DateTime.now().millisecondsSinceEpoch}.jpg';
-  ctx.state.controller.takePicture(filePath).then((value) {
+  ctx.state.controller.takePicture().then((value) {
     final _image = FirebaseVisionImage.fromFilePath(filePath);
     _recognizer.processImage(_image).then((d) {
       print(d.text);

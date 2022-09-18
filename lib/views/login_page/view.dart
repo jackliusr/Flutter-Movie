@@ -611,8 +611,7 @@ class _SmsSendCellState extends State<_SmsSendCell> {
                   }
                 });
               } else
-                Toast.show('Invalid phone number', context,
-                    gravity: Toast.CENTER);
+                Toast.show('Invalid phone number', gravity: Toast.center);
             },
             child: Icon(Icons.send));
   }

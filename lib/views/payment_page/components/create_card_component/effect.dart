@@ -77,7 +77,7 @@ void _nextTapped(Action action, Context<CreateCardState> ctx) async {
           ctx.dispatch(PaymentPageActionCreator.insertCreditCard(_card));
           Navigator.of(ctx.context).pop();
         } else
-          Toast.show(_r.result['message'], ctx.context, duration: 5);
+          Toast.show(_r.result['message'], duration: 5);
       }
 
       ctx.dispatch(CreateCardActionCreator.loading(false));

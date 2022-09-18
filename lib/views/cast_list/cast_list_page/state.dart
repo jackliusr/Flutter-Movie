@@ -6,7 +6,7 @@ import 'package:movie/globalbasestate/state.dart';
 import 'package:movie/models/app_user.dart';
 
 class CastListState implements GlobalBaseState, Cloneable<CastListState> {
-  Stream<FetchResult> castList;
+  Stream<QueryResult> castList;
   @override
   CastListState clone() {
     return CastListState()

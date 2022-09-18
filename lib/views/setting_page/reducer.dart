@@ -54,11 +54,11 @@ SettingPageState _cachedSizeUpdate(SettingPageState state, Action action) {
 }
 
 SettingPageState _userUpdate(SettingPageState state, Action action) {
-  final FirebaseUser _user = action.payload;
+  final User _user = action.payload;
   final SettingPageState newState = state.clone();
   newState.user = _user;
   newState.userName = _user.displayName;
-  newState.photoUrl = _user.photoUrl;
+  newState.photoUrl = _user.photoURL;
   return newState;
 }
 

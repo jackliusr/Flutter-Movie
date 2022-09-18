@@ -79,6 +79,6 @@ void _onDeleteTap(Action action, Context<CastListDetailState> ctx) async {
   if (!_result.hasException) {
     ctx.dispatch(CastListDetailActionCreator.updateCastList(_cast));
   } else {
-    Toast.show('Something wrong', ctx.context);
+    Toast.show('Something wrong');
   }
 }

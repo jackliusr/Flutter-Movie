@@ -157,7 +157,6 @@ class WebTorrentPlayerState extends State<WebTorrentPlayer> {
     </script>
   </body>
 </html>"""),
-        initialHeaders: {},
       ),
     );
   }

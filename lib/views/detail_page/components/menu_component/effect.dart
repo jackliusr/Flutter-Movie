@@ -25,7 +25,7 @@ Effect<MenuState> buildEffect() {
 void _onAction(Action action, Context<MenuState> ctx) {}
 
 void _requestStreamLink(Action action, Context<MenuState> ctx) async {
-  FirebaseMessaging().subscribeToTopic('movie_${ctx.state.id}');
+  FirebaseMessaging.instance.subscribeToTopic('movie_${ctx.state.id}');
   Navigator.of(ctx.context).pop();
   final _baseApi = BaseApi.instance;
   _baseApi.sendRequestStreamLink(StreamLinkReport()

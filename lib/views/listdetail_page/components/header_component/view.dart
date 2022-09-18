@@ -139,7 +139,7 @@ class _IconButton extends StatelessWidget {
 
 class _Header extends StatelessWidget {
   final String backGroundUrl;
-  final FirebaseUser user;
+  final User user;
   final Dispatch dispatch;
   final List<SortCondition<dynamic>> sortBy;
   final String description;
@@ -175,11 +175,11 @@ class _Header extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Colors.grey,
                         borderRadius: BorderRadius.circular(Adapt.px(50)),
-                        image: user.photoUrl != null
+                        image: user.photoURL != null
                             ? DecorationImage(
                                 fit: BoxFit.cover,
                                 image:
-                                    CachedNetworkImageProvider(user.photoUrl))
+                                    CachedNetworkImageProvider(user.photoURL))
                             : null),
                   ),
                   SizedBox(

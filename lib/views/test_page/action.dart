@@ -8,11 +8,11 @@ class TestPageActionCreator {
     return const Action(TestPageAction.action);
   }
 
-  static Action setData(Stream<FetchResult> d) {
+  static Action setData(Stream<QueryResult> d) {
     return Action(TestPageAction.setData, payload: d);
   }
 
-  static Action setData2(Stream<FetchResult> d) {
+  static Action setData2(Stream<QueryResult> d) {
     return Action(TestPageAction.setData2, payload: d);
   }
 }

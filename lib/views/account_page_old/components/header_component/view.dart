@@ -17,11 +17,11 @@ Widget buildView(
         decoration: BoxDecoration(
           color: Color(0xFF8499FD),
           shape: BoxShape.circle,
-          image: state.user?.firebaseUser?.photoUrl != null
+          image: state.user?.firebaseUser?.photoURL != null
               ? DecorationImage(
                   fit: BoxFit.cover,
                   image: CachedNetworkImageProvider(
-                      state.user?.firebaseUser?.photoUrl),
+                      state.user?.firebaseUser?.photoURL),
                 )
               : null,
         ),

@@ -68,12 +68,10 @@ void _uploadBackground(Action action, Context<CreateListPageState> ctx) async {
       source: ImageSource.gallery, maxHeight: 1920, maxWidth: 1080);
   if (_image != null) {
     ctx.dispatch(CreateListPageActionCreator.setLoading(true));
-    StorageReference storageReference = FirebaseStorage.instance
+    final storageReference = FirebaseStorage.instance
         .ref()
         .child('avatar/${Path.basename(_image.path)}');
-    StorageUploadTask uploadTask =
-        storageReference.putData(await _image.readAsBytes());
-    await uploadTask.onComplete;
+    await storageReference.putData(await _image.readAsBytes());
     print('File Uploaded');
     storageReference.getDownloadURL().then((fileURL) {
       if (fileURL != null) {

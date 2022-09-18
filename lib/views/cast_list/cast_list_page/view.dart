@@ -29,7 +29,7 @@ Widget buildView(
       ],
     ),
     backgroundColor: _theme.backgroundColor,
-    body: StreamBuilder<FetchResult>(
+    body: StreamBuilder<QueryResult>(
       stream: state.castList,
       builder: (_, snapShot) {
         switch (snapShot.connectionState) {

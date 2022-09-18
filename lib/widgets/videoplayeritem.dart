@@ -26,7 +26,7 @@ class VideoPlayerItemState extends State<VideoPlayerItem> {
   VideoPlayerController vc;
   bool showplayer = true;
   void playButtonClicked() {
-    if (!vc.value.initialized) {
+    if (!vc.value.isInitialized) {
       vc.initialize().then((_) {
         setState(() {
           showplayer = false;

@@ -47,7 +47,7 @@ class WatchlistDetailState extends State<WatchlistDetail>
       GestureDetector(
         child: VideoPlayer(videoPlayerController),
         onTap: () {
-          if (!videoPlayerController.value.initialized) {
+          if (!videoPlayerController.value.isInitialized) {
             return;
           }
           if (videoPlayerController.value.isPlaying) {

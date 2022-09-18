@@ -11,7 +11,7 @@ import 'package:movie/views/setting_page/action.dart';
 class SettingBody extends StatelessWidget {
   final AnimationController pageAnimation;
   final AnimationController userEditAnimation;
-  final FirebaseUser user;
+  final User user;
   final bool adultSwitchValue;
   final double cachedSize;
   final bool loading;
@@ -83,7 +83,7 @@ class SettingBody extends StatelessWidget {
 class _UserCell extends StatelessWidget {
   final AnimationController pageAnimation;
   final AnimationController userEditAnimation;
-  final FirebaseUser user;
+  final User user;
   const _UserCell({this.pageAnimation, this.user, this.userEditAnimation});
   @override
   Widget build(BuildContext context) {
@@ -101,10 +101,10 @@ class _UserCell extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: const Color(0xFF303030),
-              image: user?.photoUrl != null
+              image: user?.photoURL != null
                   ? DecorationImage(
                       fit: BoxFit.cover,
-                      image: CachedNetworkImageProvider(user?.photoUrl),
+                      image: CachedNetworkImageProvider(user?.photoURL),
                     )
                   : null,
             ),

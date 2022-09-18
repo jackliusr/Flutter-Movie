@@ -113,7 +113,7 @@ void _reportStreamLink(Action action, Context<BottomPanelState> ctx) {
 
 void _requestStreamLink(Action action, Context<BottomPanelState> ctx) async {
   final _topic = 'movie_${ctx.state.movieId}';
-  final _firebaseMessaging = FirebaseMessaging();
+  final _firebaseMessaging = FirebaseMessaging.instance;
   final _token = await _firebaseMessaging.getToken();
   //_firebaseMessaging.subscribeToTopic(_topic);
   final _baseApi = BaseApi.instance;
@@ -123,9 +123,8 @@ void _requestStreamLink(Action action, Context<BottomPanelState> ctx) async {
     ..type = 'movie');
   _baseApi.subscribeTpoic(TopicSubscription.fromParams(
       topicId: _topic, cloudMessagingToken: _token));
-  Toast.show(
-      'You will be notified when the stream link has been added', ctx.context,
-      duration: Toast.LENGTH_LONG);
+  Toast.show('You will be notified when the stream link has been added',
+      duration: Toast.lengthLong);
 }
 
 void _showStreamlinkFilter(Action action, Context<BottomPanelState> ctx) async {

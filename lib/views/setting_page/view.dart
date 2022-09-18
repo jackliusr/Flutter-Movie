@@ -299,7 +299,7 @@ class _UserProfilePanel extends StatelessWidget {
   final TextEditingController photoController;
   final TextEditingController phoneController;
   final Dispatch dispatch;
-  final FirebaseUser user;
+  final User user;
   const _UserProfilePanel(
       {this.dispatch,
       this.phoneController,

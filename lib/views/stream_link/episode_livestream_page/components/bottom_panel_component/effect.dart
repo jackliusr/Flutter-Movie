@@ -118,7 +118,7 @@ void _reportStreamLink(Action action, Context<BottomPanelState> ctx) {
 void _requestStreamLink(Action action, Context<BottomPanelState> ctx) async {
   final _name = 'S${ctx.state.season}';
   final _topic = 'tvshow_${ctx.state.tvId}_$_name';
-  final _firebaseMessaging = FirebaseMessaging();
+  final _firebaseMessaging = FirebaseMessaging.instance;
   final _token = await _firebaseMessaging.getToken();
   //_firebaseMessaging.subscribeToTopic('tvshow_${ctx.state.tvId}_$_name');
   final _baseApi = BaseApi.instance;
@@ -131,9 +131,8 @@ void _requestStreamLink(Action action, Context<BottomPanelState> ctx) async {
     topicId: _topic,
     cloudMessagingToken: _token,
   ));
-  Toast.show(
-      'You will be notified when the stream link has been added', ctx.context,
-      duration: Toast.LENGTH_LONG);
+  Toast.show('You will be notified when the stream link has been added',
+      duration: Toast.lengthLong);
 }
 
 void _showStreamlinkFilter(Action action, Context<BottomPanelState> ctx) async {

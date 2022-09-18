@@ -5,7 +5,7 @@ import 'package:movie/views/listdetail_page/state.dart';
 
 class ShareCardState implements Cloneable<ShareCardState> {
   UserList listDetailModel;
-  FirebaseUser user;
+  User user;
   @override
   ShareCardState clone() {
     return ShareCardState();

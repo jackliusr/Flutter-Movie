@@ -44,7 +44,7 @@ class SettingPageActionCreator {
     return Action(SettingPageAction.profileEdit);
   }
 
-  static Action userUpadate(FirebaseUser user) {
+  static Action userUpadate(User user) {
     return Action(SettingPageAction.userUpdate, payload: user);
   }
 

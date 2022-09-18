@@ -6,8 +6,8 @@ import 'package:movie/globalbasestate/state.dart';
 import 'package:movie/models/app_user.dart';
 
 class TestPageState implements GlobalBaseState, Cloneable<TestPageState> {
-  Stream<FetchResult> testData;
-  Stream<FetchResult> testData2;
+  Stream<QueryResult> testData;
+  Stream<QueryResult> testData2;
   @override
   TestPageState clone() {
     return TestPageState()

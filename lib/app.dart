@@ -30,11 +30,11 @@ class _AppState extends State<App> {
       ThemeData.light().copyWith(accentColor: Colors.transparent);
   final ThemeData _darkTheme =
       ThemeData.dark().copyWith(accentColor: Colors.transparent);
-  final FirebaseAnalytics analytics = FirebaseAnalytics();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   Future _init() async {
-    if (Platform.isAndroid)
-      await PermissionHandler().requestPermissions([PermissionGroup.storage]);
+    if (Platform.isAndroid) await Permission.storage.request();
+
     setLocaleInfo('zh', TimelineInfoCN());
     setLocaleInfo('en', TimelineInfoEN());
     setLocaleInfo('Ja', TimelineInfoJA());

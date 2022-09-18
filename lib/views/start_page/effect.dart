@@ -18,10 +18,18 @@ Effect<StartPageState> buildEffect() {
 
 void _onAction(Action action, Context<StartPageState> ctx) {}
 void _onInit(Action action, Context<StartPageState> ctx) async {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  _firebaseMessaging.requestNotificationPermissions();
-  _firebaseMessaging.configure();
-  _firebaseMessaging.autoInitEnabled();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  _firebaseMessaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+  //firebaseMessaging.configure();
+  _firebaseMessaging.setAutoInitEnabled(true);
   ctx.state.pageController = PageController();
   SharedPreferences.getInstance().then((_p) async {
     final _isFirst = _p.getBool('firstStart') ?? true;

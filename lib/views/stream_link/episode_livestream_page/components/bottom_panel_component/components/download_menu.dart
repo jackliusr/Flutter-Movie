@@ -156,7 +156,7 @@ class _DownLoadTaskListState extends State<_DownLoadTaskList> {
       } else
         _downloadAddress = link.streamLink;
       if (_downloadAddress == null)
-        return Toast.show('Invalid download address', context);
+        return Toast.show('Invalid download address');
       final _taskId = await FlutterDownloader.enqueue(
         url: _downloadAddress,
         fileName: _taskName + _getFileExtension(_downloadAddress),

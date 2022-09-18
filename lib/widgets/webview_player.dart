@@ -76,7 +76,7 @@ class _WebviewPlayerState extends State<WebViewPlayer> {
         index: _loadFinsh ? 0 : 1,
         children: [
           InAppWebView(
-            initialUrl: _streamlink,
+            initialData: InAppWebViewInitialData(data: _streamlink),
             initialOptions: InAppWebViewGroupOptions(
               android: AndroidInAppWebViewOptions(
                 supportMultipleWindows: false,
@@ -89,7 +89,7 @@ class _WebviewPlayerState extends State<WebViewPlayer> {
                 useShouldOverrideUrlLoading: true,
                 mediaPlaybackRequiresUserGesture: false,
                 preferredContentMode: UserPreferredContentMode.MOBILE,
-                debuggingEnabled: true,
+                // debuggingEnabled: true,
               ),
             ),
             onProgressChanged: (controller, progress) {
@@ -129,7 +129,8 @@ class _WebviewPlayerState extends State<WebViewPlayer> {
             },
             shouldOverrideUrlLoading:
                 (controller, shouldOverrideUrlLoadingRequest) {
-              if (shouldOverrideUrlLoadingRequest.url
+              if (shouldOverrideUrlLoadingRequest.request.url
+                      .toString()
                       .compareTo(widget.filterUrl) ==
                   0) {
                 controller.stopLoading();

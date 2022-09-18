@@ -40,14 +40,14 @@ void _onInit(Action action, Context<MainPageState> ctx) async {
   _localNotification.didReceiveLocalNotification = (id, title, body, payload) =>
       _didReceiveLocalNotification(id, title, body, payload, ctx);
 
-  FirebaseMessaging().configure(onMessage: (message) async {
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
     NotificationList _list;
     if (_preferences.containsKey('notifications')) {
       final String _notifications = _preferences.getString('notifications');
       _list = NotificationList(_notifications);
     }
     if (_list == null) _list = NotificationList.fromParams(notifications: []);
-    final _notificationMessage = NotificationModel.fromMap(message);
+    final _notificationMessage = NotificationModel.fromMap(message.data);
     _list.notifications.add(_notificationMessage);
     _preferences.setString('notifications', _list.toString());
     _localNotification.sendNotification(_notificationMessage.notification.title,
@@ -55,10 +55,13 @@ void _onInit(Action action, Context<MainPageState> ctx) async {
         id: int.parse(_notificationMessage.id),
         payload: _notificationMessage.type);
     print(_list.toString());
-  }, onResume: (message) async {
-    _push(message, ctx);
-  }, onLaunch: (message) async {
-    _push(message, ctx);
+  });
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+    _push(message.data, ctx);
+  });
+
+  FirebaseMessaging.onBackgroundMessage((RemoteMessage message) async {
+    _push(message.data, ctx);
   });
 
   if (Platform.isAndroid) _bindBackgroundIsolate();

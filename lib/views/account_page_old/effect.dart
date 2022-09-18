@@ -26,7 +26,7 @@ Future _onLogin(Action action, Context<AccountPageState> ctx) async {
   if (r == null) return;
   if (r['s'] == true) {
     String name = r['name'];
-    String avatar = ctx.state.user?.firebaseUser?.photoUrl;
+    String avatar = ctx.state.user?.firebaseUser?.photoURL;
     bool islogin = ctx.state.user != null;
     ctx.dispatch(AccountPageActionCreator.onInit(name, avatar, islogin));
   }
@@ -39,7 +39,7 @@ Future _onInit(Action action, Context<AccountPageState> ctx) async {
         vsync: ticker, duration: Duration(milliseconds: 1000));
   }
   String name = ctx.state.user?.firebaseUser?.displayName;
-  String avatar = ctx.state.user?.firebaseUser?.photoUrl;
+  String avatar = ctx.state.user?.firebaseUser?.photoURL;
   bool islogin = ctx.state.user != null;
   ctx.dispatch(AccountPageActionCreator.onInit(name, avatar, islogin));
 }

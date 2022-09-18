@@ -7,6 +7,7 @@ import 'package:movie/widgets/shimmercell.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_extend/share_extend.dart';
+import 'dart:typed_data';
 
 class ShareCard extends StatefulWidget {
   final String backgroundImage;
@@ -146,8 +147,10 @@ class ShareCardState extends State<ShareCard> {
   }
 
   void shareTapped() {
-    screenshotController.capture().then((File image) async {
-      ShareExtend.share(image.path, "image");
+    //  Future<R> then<R>(FutureOr<R> onValue(T value), {Function? onError});
+
+    screenshotController.capture().then((Uint8List image) async {
+      //ShareExtend.share(image, "image");
     }).catchError((onError) {
       print(onError);
     });

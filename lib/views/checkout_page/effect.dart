@@ -54,8 +54,8 @@ void _onPay(Action action, Context<CheckOutPageState> ctx) async {
       (!ctx.state.paymentState.nativePay &&
           ctx.state.paymentState.selectedCard == null)) {
     ctx.dispatch(CheckOutPageActionCreator.loading(false));
-    return Toast.show('empty payment method', ctx.context,
-        gravity: Toast.CENTER, duration: 5);
+    return Toast.show('empty payment method',
+        gravity: Toast.center, duration: 5);
   }
   await StripePayment.canMakeNativePayPayments([])
       .then((value) => print(value));
@@ -121,12 +121,10 @@ void _onPay(Action action, Context<CheckOutPageState> ctx) async {
             ),
             (route) => route.isFirst);
       } else
-        Toast.show(_result.message, ctx.context,
-            gravity: Toast.CENTER, duration: 5);
+        Toast.show(_result.message, gravity: Toast.center, duration: 5);
       print(_result.result);
     } else {
-      Toast.show('Something wrong', ctx.context,
-          gravity: Toast.CENTER, duration: 5);
+      Toast.show('Something wrong', gravity: Toast.center, duration: 5);
       StripePayment.cancelNativePayRequest();
     }
   });
